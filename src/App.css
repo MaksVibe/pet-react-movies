@@ -2,8 +2,16 @@
   padding: 0 20px;
   background-color: #282c34;
   min-height: 60px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
   font-size: calc(10px + 2vmin);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.backBtn {
+  margin-bottom: 10px;
+  padding: 5px 15px;
+  cursor: pointer;
 }

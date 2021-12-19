@@ -1,7 +1,8 @@
 import "./App.css";
-import { fetchSearchFilms, fetchFilms } from "./source/api";
-import React, { useState, useEffect, lazy, Suspense } from "react";
 import HomePage from "./components/HomePage/HomePage";
+import MoviesPage from "./components/MoviesPage/MoviesPage";
+import { fetchFilms } from "./source/api";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import MovieDetailsPage from "./components/MovieDetailsPage/MovieDetailsPage";
 import { Route, Switch } from "react-router-dom";
 import AppBar from "./components/AppBar/AppBar";
@@ -14,7 +15,6 @@ function App() {
   const [film, setFilm] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [movieIsOpen, setMovieIsOpen] = useState(false);
 
   const REQUESTS = {
     TRANDING: "/trending/movie/day",
@@ -38,42 +38,24 @@ function App() {
     getFilms();
   }, [REQUESTS.TRANDING]);
 
-  useEffect(() => {
-    fetchFilms(REQUESTS.INFO);
-    // return () => {
-    //   cleanup
-    // }
-  }, [REQUESTS.INFO]);
-
-  const openMovie = (e) => {
-    e.preventDefault();
-    setMovieIsOpen(true);
-    const film = films.find(({ original_title, id }) =>
-      original_title === e.target.textContent ? id : false
-    );
-    setFilm(film);
-  };
-
-  const closeMovie = (e) => {
-    setMovieIsOpen(false);
-  };
-
   return (
     <div className="App">
       <AppBar />
       <Switch>
-        {/* <Route path="/" exact component={HomePage} /> */}
         <Route path="/" exact>
           <HomePage films={films} />
+        </Route>
+        <Route path="/movies" exact>
+          <MoviesPage />
+        </Route>
+
+        <Route path="/movies/:moviesId">
+          <MovieDetailsPage />
         </Route>
         <Route>
           <NotFound />
         </Route>
       </Switch>
-      {/* 
-          <HomePage films={films} openMovie={openMovie} />
-
-      {movieIsOpen && <MovieDetailsPage closeMovie={closeMovie} film={film} />} */}
     </div>
   );
 }

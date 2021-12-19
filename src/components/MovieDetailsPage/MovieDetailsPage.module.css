@@ -1,0 +1,48 @@
+.MovieCard {
+  border-top: 2px solid #282c34;
+  color: white;
+  overflow: hidden;
+}
+
+.MoviePoster {
+  float: right;
+  shape-outside: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
+  shape-margin: 10px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
+  width: 100%;
+  max-width: 240px;
+}
+
+.MovieDescription {
+  padding: 0 10px;
+}
+
+.MovieInfo {
+  max-width: 800px;
+  border-top: 2px solid #282c34;
+  padding: 10px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.MovieInfoLink {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 5px 10px;
+  border: 1px solid #282c34;
+  border-radius: 4px;
+}
+
+.ActiveMovieInfoLink {
+  color: #282c34;
+  border-color: aquamarine;
+  background-color: aquamarine;
+}
+
+.MovieInfoLink:hover,
+.MovieInfoLink:hover {
+  color: #282c34;
+  border-color: aquamarine;
+  background-color: aquamarine;
+}
