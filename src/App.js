@@ -1,10 +1,11 @@
 import "./App.css";
 import { fetchSearchFilms, fetchFilms } from "./source/api";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import HomePage from "./components/HomePage/HomePage";
-import Header from "./components/common/Header";
 import MovieDetailsPage from "./components/MovieDetailsPage/MovieDetailsPage";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import AppBar from "./components/AppBar/AppBar";
+import NotFound from "./components/common/404NotFound";
 
 function App() {
   const [q, setQ] = useState("");
@@ -37,12 +38,12 @@ function App() {
     getFilms();
   }, [REQUESTS.TRANDING]);
 
-  // useEffect(() => {
-  //   fetchFilms(REQUESTS.INFO);
-  //   // return () => {
-  //   //   cleanup
-  //   // }
-  // }, [REQUESTS.INFO])
+  useEffect(() => {
+    fetchFilms(REQUESTS.INFO);
+    // return () => {
+    //   cleanup
+    // }
+  }, [REQUESTS.INFO]);
 
   const openMovie = (e) => {
     e.preventDefault();
@@ -59,15 +60,20 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <Route path="/" exact component={HomePage} />
-      {!movieIsOpen && (
-        <div>
+      <AppBar />
+      <Switch>
+        {/* <Route path="/" exact component={HomePage} /> */}
+        <Route path="/" exact>
+          <HomePage films={films} />
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+      {/* 
           <HomePage films={films} openMovie={openMovie} />
-        </div>
-      )}
 
-      {movieIsOpen && <MovieDetailsPage closeMovie={closeMovie} film={film} />}
+      {movieIsOpen && <MovieDetailsPage closeMovie={closeMovie} film={film} />} */}
     </div>
   );
 }
