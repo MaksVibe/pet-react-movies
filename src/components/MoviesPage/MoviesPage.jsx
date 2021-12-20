@@ -3,19 +3,34 @@ import { useRouteMatch } from "react-router-dom";
 import { fetchSearchFilms } from "../../source/api";
 import { Link } from "react-router-dom";
 import s from "../../styles/MoviesList.module.css";
+import { get, save } from "../services/localStorage";
+
+const MOVIES = "movies";
+const QUERY = "query";
 
 const MoviesPage = () => {
   const [q, setQ] = useState("");
   const [movies, setMovies] = useState(null);
+  const [query, setQuery] = useState("");
+
   const { url } = useRouteMatch();
 
   useEffect(() => {
-    fetchSearchFilms(q);
-  }, [q]);
+    if (!query) return false;
+    fetchSearchFilms(query).then(setMovies);
+    save(QUERY, q);
+  }, [q, query]);
+
+  useEffect(() => {
+    const queryLocal = get(QUERY);
+    setQuery(queryLocal);
+    setQ(queryLocal);
+  }, []);
 
   const handleSubmitInput = (e) => {
     e.preventDefault();
     fetchSearchFilms(q).then(setMovies);
+    setQuery(q);
   };
 
   const handleChange = (event) => {
