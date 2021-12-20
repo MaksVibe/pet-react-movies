@@ -1,19 +1,29 @@
+import { useEffect, useState } from "react";
 import s from "./Reviews.module.css";
 
 const Reviews = ({ reviews }) => {
-  // We don't have any reviews for this movie
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    setResults(reviews.results);
+  }, [reviews.results]);
+
   return (
-    reviews &&
-    reviews.results.map(({ id, author, content }) => (
-      <ul>
-        <li key={id} className={s.ReviewText}>
-          <h4>
-            Author: <span className={s.ReviwAuthor}>{author}</span>
-          </h4>
-          <p>{content}</p>
-        </li>
-      </ul>
-    ))
+    <>
+      {(!results.length && (
+        <p>We don't have any reviews for this movie...</p>
+      )) ||
+        results.map(({ id, author, content }) => (
+          <ul>
+            <li key={id} className={s.ReviewText}>
+              <h4>
+                Author: <span className={s.ReviwAuthor}>{author}</span>
+              </h4>
+              <p>{content}</p>
+            </li>
+          </ul>
+        ))}
+    </>
   );
 };
 

@@ -1,11 +1,15 @@
 import { Route } from "react-router-dom";
-import Cast from "../Cast/Cast";
-import Reviews from "../Reviews/Reviews";
 import { useParams, NavLink, useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy } from "react";
 import { fetchFilmById, fetchFilms } from "../../source/api";
 import s from "./MovieDetailsPage.module.css";
 import { useRouteMatch } from "react-router-dom";
+
+// import Cast from "../Cast/Cast";
+// import Reviews from "../Reviews/Reviews";
+
+const Cast = lazy(() => import("../Cast/Cast"));
+const Reviews = lazy(() => import("../Reviews/Reviews"));
 
 const MovieDetailsPage = () => {
   const { moviesId } = useParams();

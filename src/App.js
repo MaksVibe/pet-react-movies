@@ -1,12 +1,21 @@
 import "./App.css";
-import HomePage from "./components/HomePage/HomePage";
-import MoviesPage from "./components/MoviesPage/MoviesPage";
 import { fetchFilms } from "./source/api";
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import MovieDetailsPage from "./components/MovieDetailsPage/MovieDetailsPage";
 import { Route, Switch } from "react-router-dom";
-import AppBar from "./components/AppBar/AppBar";
-import NotFound from "./components/common/404NotFound";
+
+// import AppBar from "./components/AppBar/AppBar";
+// import HomePage from "./components/HomePage/HomePage";
+// import MoviesPage from "./components/MoviesPage/MoviesPage";
+// import MovieDetailsPage from "./components/MovieDetailsPage/MovieDetailsPage";
+// import NotFound from "./components/common/404NotFound";
+
+const AppBar = lazy(() => import("./components/AppBar/AppBar"));
+const HomePage = lazy(() => import("./components/HomePage/HomePage"));
+const MoviesPage = lazy(() => import("./components/MoviesPage/MoviesPage"));
+const MovieDetailsPage = lazy(() =>
+  import("./components/MovieDetailsPage/MovieDetailsPage")
+);
+const NotFound = lazy(() => import("./components/common/404NotFound"));
 
 function App() {
   const [movieId, setMovieId] = useState(null);
@@ -38,22 +47,24 @@ function App() {
 
   return (
     <div className="App">
-      <AppBar />
-      <Switch>
-        <Route path="/" exact>
-          <HomePage films={films} />
-        </Route>
-        <Route path="/movies" exact>
-          <MoviesPage />
-        </Route>
+      <Suspense fallback={"...loading"}>
+        <AppBar />
+        <Switch>
+          <Route path="/" exact>
+            <HomePage films={films} />
+          </Route>
+          <Route path="/movies" exact>
+            <MoviesPage />
+          </Route>
 
-        <Route path="/movies/:moviesId">
-          <MovieDetailsPage />
-        </Route>
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
+          <Route path="/movies/:moviesId">
+            <MovieDetailsPage />
+          </Route>
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </Suspense>
     </div>
   );
 }
