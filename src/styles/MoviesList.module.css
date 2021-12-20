@@ -1,0 +1,16 @@
+.MoviesList {
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.MoviesListItem {
+  max-width: 180px;
+}
+
+.MoviesListLink {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}

@@ -9,10 +9,8 @@ import AppBar from "./components/AppBar/AppBar";
 import NotFound from "./components/common/404NotFound";
 
 function App() {
-  const [q, setQ] = useState("");
   const [movieId, setMovieId] = useState(null);
   const [films, setFilms] = useState([]);
-  const [film, setFilm] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 

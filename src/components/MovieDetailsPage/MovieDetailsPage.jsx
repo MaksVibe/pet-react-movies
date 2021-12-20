@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom";
 import Cast from "../Cast/Cast";
 import Reviews from "../Reviews/Reviews";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchFilmById, fetchFilms } from "../../source/api";
 import s from "./MovieDetailsPage.module.css";
@@ -13,6 +13,8 @@ const MovieDetailsPage = () => {
   const [cast, setCast] = useState(null);
   const [reviews, setReviews] = useState(null);
   const { url } = useRouteMatch();
+
+  let history = useHistory();
 
   useEffect(() => {
     fetchFilmById(moviesId).then(setMovie);
@@ -26,9 +28,13 @@ const MovieDetailsPage = () => {
     fetchFilms(`/movie/${moviesId}/reviews`).then(setReviews);
   }, [moviesId]);
 
+  const handleClick = () => {
+    history.push("/");
+  };
+
   return (
     <div className="container">
-      <button type="button" className="backBtn">
+      <button type="button" className="backBtn" onClick={() => handleClick()}>
         Go back
       </button>
       {movie && (
