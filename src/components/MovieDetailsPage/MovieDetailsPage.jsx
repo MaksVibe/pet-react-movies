@@ -28,13 +28,13 @@ const MovieDetailsPage = () => {
     fetchFilms(`/movie/${moviesId}/reviews`).then(setReviews);
   }, [moviesId]);
 
-  const handleClick = () => {
-    history.push("/");
-  };
-
   return (
     <div className="container">
-      <button type="button" className="backBtn" onClick={() => handleClick()}>
+      <button
+        type="button"
+        className="backBtn"
+        onClick={() => history.goBack()}
+      >
         Go back
       </button>
       {movie && (
