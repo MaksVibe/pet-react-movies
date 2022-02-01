@@ -5,9 +5,6 @@ import { fetchFilmById, fetchFilms } from "../../source/api";
 import s from "./MovieDetailsPage.module.css";
 import { useRouteMatch } from "react-router-dom";
 
-// import Cast from "../Cast/Cast";
-// import Reviews from "../Reviews/Reviews";
-
 const Cast = lazy(() => import("../Cast/Cast"));
 const Reviews = lazy(() => import("../Reviews/Reviews"));
 
